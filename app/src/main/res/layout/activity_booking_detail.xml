@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.booking.bookingapp.BookingDetailActivity">
+
+    <TextView
+        android:id="@+id/detail_ruang"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="30dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:text="Ruang"/>
+    <TextView
+        android:id="@+id/detail_jam"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:text="Jam"
+        android:layout_marginLeft="20dp"
+        android:layout_below="@+id/detail_ruang"/>
+    <TextView
+        android:id="@+id/detail_tgl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:text="Tgl"
+        android:layout_marginLeft="20dp"
+        android:layout_below="@+id/detail_jam"/>
+    <TextView
+        android:id="@+id/detail_ket"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:text="Ket"
+        android:layout_marginLeft="20dp"
+        android:layout_below="@+id/detail_tgl"/>
+
+</RelativeLayout>

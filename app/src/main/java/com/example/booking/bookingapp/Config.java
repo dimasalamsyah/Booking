@@ -10,6 +10,7 @@ public class Config {
 
     public static final String BOOKING_LIST_URL = url + "booking_rooms/forms/android/booking_forms_list_android.php";
     public static final String TAMBAH_BOOKING_URL = url + "booking_rooms/forms/android/booking_forms_save_android.php";
+    public static final String HAPUS_BOOKING_URL = url + "booking_rooms/forms/android/booking_forms_delete_android.php";
 
     public static final String JAM_URL = url + "booking_rooms/forms/jam_forms_getdata.php?akses=android";
     public static final String RUANG_URL = url + "booking_rooms/forms/ruangan_forms_getdata.php?akses=android";
