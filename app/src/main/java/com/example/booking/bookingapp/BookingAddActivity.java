@@ -66,6 +66,7 @@ public class BookingAddActivity extends AppCompatActivity {
             calendarView.setDate(getLongAsDate(extras.getString("tgl")), true, true);
             getSupportActionBar().setTitle("Edit Booking Kelas");
             btnBooking.setText("Ubah Booking");
+            keterangan.setText(extras.getString("ket"));
         }
     }
 

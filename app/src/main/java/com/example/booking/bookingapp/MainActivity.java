@@ -42,12 +42,17 @@ public class MainActivity extends AppCompatActivity {
 
     ListView listView;
     private ArrayList<String> listBooking, listBooking_detail;
+    SharedPrefManager sharedPrefManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        sharedPrefManager = new SharedPrefManager(this);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("Booking Kelas - " + sharedPrefManager.getSPNama());
         setSupportActionBar(toolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -60,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         listView = (ListView)findViewById(R.id.listView);
+
         refreshList();
     }
 
@@ -75,11 +81,21 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_logout:
-                Toast.makeText(this, "Logout", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, "Logout", Toast.LENGTH_SHORT).show();
+                sharedPrefManager.saveSPBoolean(SharedPrefManager.SP_SUDAH_LOGIN, false);
+                startActivity(new Intent(MainActivity.this, LoginActivity.class)
+                        .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
+                finish();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+        super.onBackPressed();
     }
 
     public void refreshList(){
@@ -133,16 +149,17 @@ public class MainActivity extends AppCompatActivity {
                                             startActivity(det_intent);
                                             break;
                                         case 1 :
-
                                             String nama_ruangan = (String) obj.get("nama_ruangan");
                                             String jam = (String) obj.get("jam");
                                             String tgl = (String) obj.get("tgl");
                                             String id = (String) obj.get("id");
+                                            String ket = (String) obj.get("ket");
                                             Intent intent = new Intent(MainActivity.this, BookingAddActivity.class);
                                             intent.putExtra("nama_ruangan",nama_ruangan.toString());
                                             intent.putExtra("jam",jam.toString());
                                             intent.putExtra("tgl",tgl.toString());
                                             intent.putExtra("id",id.toString());
+                                            intent.putExtra("ket",ket.toString());
                                             startActivity(intent);
                                             break;
                                         case 2 :
