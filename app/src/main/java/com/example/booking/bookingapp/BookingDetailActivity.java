@@ -14,6 +14,7 @@ public class BookingDetailActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle("Detail Booking Kelas");
+        getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.gradient_login));
 
         ruang = (TextView)findViewById(R.id.detail_ruang);
         jam = (TextView)findViewById(R.id.detail_jam);

@@ -1,10 +1,15 @@
 package com.example.booking.bookingapp;
 
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -56,6 +61,7 @@ public class BookingAddActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle("Tambah Booking Kelas");
+        getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.gradient_login));
 
         init();
         getdata_jam();
@@ -67,6 +73,25 @@ public class BookingAddActivity extends AppCompatActivity {
             getSupportActionBar().setTitle("Edit Booking Kelas");
             btnBooking.setText("Ubah Booking");
             keterangan.setText(extras.getString("ket"));
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_add, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_send:
+                booking();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 
@@ -99,12 +124,12 @@ public class BookingAddActivity extends AppCompatActivity {
                 curDate =String.valueOf(y) +"-"+ String.valueOf(m + 1) +"-"+ String.valueOf(d);
             }
         });
-        btnBooking.setOnClickListener(new View.OnClickListener() {
+        /*btnBooking.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 booking();
             }
-        });
+        });*/
     }
 
     public void getdata_kelas(){
