@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void refreshList(){
-        StringRequest stringRequest = new StringRequest(Config.BOOKING_LIST_URL, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(sharedPrefManager.getBookingListUrl(), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
@@ -208,7 +208,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void hapus(final String id){
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, Config.HAPUS_BOOKING_URL, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, sharedPrefManager.getHapusBookingUrl(), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 if(response.equals("success")){

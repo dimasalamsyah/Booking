@@ -20,6 +20,9 @@
             android:name=".BookingAddActivity"
             android:parentActivityName=".MainActivity" />
         <activity
+            android:name=".SettingIPActivity"
+            android:parentActivityName=".LoginActivity" />
+        <activity
             android:name=".BookingDetailActivity"
             android:parentActivityName=".MainActivity" />
         <activity android:name=".LoginActivity"

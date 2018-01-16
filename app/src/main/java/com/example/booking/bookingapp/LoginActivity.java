@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -73,54 +74,60 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void doLogin(){
-        ShowProgressDialog();
-
-        //Getting values from edit texts
         final String username = login_username.getText().toString().trim();
         final String password = login_password.getText().toString().trim();
-        //Creating a string request
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, Config.LOGIN_URL,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
 
-                        //If we are getting success from server
-                        if (response.contains("success")) {
-                            HideProgressDialog();
-                            sharedPrefManager.saveSPBoolean(SharedPrefManager.SP_SUDAH_LOGIN, true);
-                            sharedPrefManager.saveSPString(SharedPrefManager.SP_NAMA, username);
-                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                            startActivity(intent);
-                            finish();
-                            //Toast.makeText(LoginActivity.this, response, Toast.LENGTH_LONG).show();
-                        } else {
-                            //Displaying an error message on toast
-                            HideProgressDialog();
-                            Toast.makeText(LoginActivity.this, response, Toast.LENGTH_LONG).show();
+        if(username.equals("*config")){
+            Intent intent = new Intent(LoginActivity.this, SettingIPActivity.class);
+            startActivity(intent);
+        }else{
+            Log.d("Hasil", sharedPrefManager.getLoginUrl());
+
+            ShowProgressDialog();
+            //Creating a string request
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, sharedPrefManager.getLoginUrl(),
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+
+                            //If we are getting success from server
+                            if (response.contains("success")) {
+                                HideProgressDialog();
+                                sharedPrefManager.saveSPBoolean(SharedPrefManager.SP_SUDAH_LOGIN, true);
+                                sharedPrefManager.saveSPString(SharedPrefManager.SP_NAMA, username);
+                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                startActivity(intent);
+                                finish();
+                                //Toast.makeText(LoginActivity.this, response, Toast.LENGTH_LONG).show();
+                            } else {
+                                //Displaying an error message on toast
+                                HideProgressDialog();
+                                Toast.makeText(LoginActivity.this, response, Toast.LENGTH_LONG).show();
+                            }
                         }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        //You can handle error here if you want
-                        Toast.makeText(LoginActivity.this, "The server unreachable", Toast.LENGTH_LONG).show();
-                        HideProgressDialog();
-                    }
-                }) {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                //Adding parameters to request
-                params.put(Config.KEY_USERNAME, username);
-                params.put(Config.KEY_PASSWORD, password);
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            //You can handle error here if you want
+                            Toast.makeText(LoginActivity.this, "The server unreachable", Toast.LENGTH_LONG).show();
+                            HideProgressDialog();
+                        }
+                    }) {
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String, String> params = new HashMap<>();
+                    //Adding parameters to request
+                    params.put("username", username);
+                    params.put("password", password);
 
-                //returning parameter
-                return params;
-            }
-        };
+                    //returning parameter
+                    return params;
+                }
+            };
 
-        //Adding the string request to the queue
-        Volley.newRequestQueue(this).add(stringRequest);
+            //Adding the string request to the queue
+            Volley.newRequestQueue(this).add(stringRequest);
+        }
     }
 }

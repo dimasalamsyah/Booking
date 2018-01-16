@@ -53,6 +53,8 @@ public class BookingAddActivity extends AppCompatActivity {
     SimpleDateFormat df;
     Bundle extras;
 
+    SharedPrefManager sharedPrefManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -117,6 +119,8 @@ public class BookingAddActivity extends AppCompatActivity {
         curDate = df.format(calendarView.getDate());
         keterangan = (EditText)findViewById(R.id.keterangan);
 
+        sharedPrefManager = new SharedPrefManager(this);
+
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
@@ -133,7 +137,7 @@ public class BookingAddActivity extends AppCompatActivity {
     }
 
     public void getdata_kelas(){
-        StringRequest stringRequest = new StringRequest(Config.RUANG_URL, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(sharedPrefManager.getRuangUrl(), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try{
@@ -167,7 +171,7 @@ public class BookingAddActivity extends AppCompatActivity {
         requestQueue.add(stringRequest);
     }
     public void getdata_jam(){
-        StringRequest stringRequest = new StringRequest(Config.JAM_URL, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(sharedPrefManager.getJamUrl(), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try{
@@ -202,9 +206,12 @@ public class BookingAddActivity extends AppCompatActivity {
     }
 
     private void booking(){
+
+
+
         final String idKelas = spinnerMap_kelas.get(spKelas.getSelectedItemPosition());
         final String idJam = spinnerMap_jam.get(spJam.getSelectedItemPosition());
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, Config.TAMBAH_BOOKING_URL, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, sharedPrefManager.getTambahBookingUrl(), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 if(response.equals("full")){
