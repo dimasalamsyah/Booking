@@ -207,8 +207,6 @@ public class BookingAddActivity extends AppCompatActivity {
 
     private void booking(){
 
-
-
         final String idKelas = spinnerMap_kelas.get(spKelas.getSelectedItemPosition());
         final String idJam = spinnerMap_jam.get(spJam.getSelectedItemPosition());
         StringRequest stringRequest = new StringRequest(Request.Method.POST, sharedPrefManager.getTambahBookingUrl(), new Response.Listener<String>() {
@@ -224,6 +222,7 @@ public class BookingAddActivity extends AppCompatActivity {
                     //BookingAddActivity.super.onBackPressed();
                     Intent i = new Intent(BookingAddActivity.this, MainActivity.class);
                     startActivity(i);
+                    finish();
                 }else{
                     Snackbar mySnackbar = Snackbar.make(findViewById(R.id.layoutBooking), "Error", Snackbar.LENGTH_SHORT);
                     mySnackbar.show();
