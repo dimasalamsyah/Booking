@@ -2,6 +2,7 @@ package com.example.booking.bookingapp;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -86,6 +87,14 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, LoginActivity.class)
                         .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
                 finish();
+                return true;
+            case R.id.action_open_maps:
+                //Uri gmmIntentUri = Uri.parse("geo:0,0?z=10?q=-6.2264191,106.9762078");
+                Uri gmmIntentUri = Uri.parse("geo:0,0?q=-6.227929,106.9819842(LP3I Bekasi)");
+                //Uri gmmIntentUri = Uri.parse("geo:-6.227929,106.9819842?q=LP3I+Polytechnic+Campus+Jakarta+Bekasi");
+                Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+                mapIntent.setPackage("com.google.android.apps.maps");
+                startActivity(mapIntent);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

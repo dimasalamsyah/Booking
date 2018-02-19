@@ -3,6 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.booking.bookingapp.MainActivity">
     <item
+        android:id="@+id/action_open_maps"
+        android:orderInCategory="100"
+        android:title="Lokasi LP3I Bekasi"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/action_logout"
         android:orderInCategory="100"
         android:title="Logut"
